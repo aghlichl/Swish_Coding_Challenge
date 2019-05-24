@@ -1,6 +1,7 @@
 import React from 'react';
 import merge from 'lodash/merge';
 import FilterModal from './filter_modal';
+import { players } from '../api';
 
 export default class SearchResults extends React.Component {
     constructor(props) {
@@ -115,8 +116,8 @@ export default class SearchResults extends React.Component {
                     (((p.points >= points_range[0]) && (p.points <= (points_range[1]))) || (typeof p.points === 'string')) &&
                     (((p.assists >= assists_range[0]) && (p.assists <= (assists_range[1]))) || (typeof p.assists === 'string')) &&
                     (((p.rebounds >= rebounds_range[0]) && (p.rebounds <= (rebounds_range[1]))) || (typeof p.rebounds === 'string'))&&
-                    ((p.starter.toString() == starter) || starter === '')&&
-                    ((p.active.toString() == active) || active === '')
+                    ((p.starter.toString() === starter) || starter === '')&&
+                    ((p.active.toString() === active) || active === '')
                 )
             });
         return playerList;
@@ -142,7 +143,7 @@ export default class SearchResults extends React.Component {
                      />
                     <button id='filter-button' onClick={() => { this.showModal() }}><i className="fas fa-filter"></i>Filter</button>
                 </div> 
-                <FilterModal onClose={() => { this.showModal() }} show={this.state.show} setFilter={this.setFilter}/>
+                <FilterModal masterList={players} onClose={() => { this.showModal() }} show={this.state.show} setFilter={this.setFilter}/>
 
                 <table>
                     <thead>
@@ -193,7 +194,7 @@ export default class SearchResults extends React.Component {
                                     <input onChange={() => this.onToggle(p.player_id, 'starter')} 
                                         type="checkbox" 
                                         checked={p.starter === 1}></input>
-                                        <div class="state">
+                                        <div className="state">
                                             <label></label>
                                         </div>
                                     </div>
@@ -203,7 +204,7 @@ export default class SearchResults extends React.Component {
                                     <input onChange={() => this.onToggle(p.player_id, 'active')} 
                                         type="checkbox" 
                                         checked={p.active === 1}></input>
-                                        <div class="state">
+                                        <div className="state">
                                             <label></label>
                                         </div>
                                     </div>

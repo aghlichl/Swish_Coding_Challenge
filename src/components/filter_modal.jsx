@@ -52,6 +52,8 @@ export default class FilterModal extends React.Component {
             case 'starter':
                 this.setState({ starter: e.target.value });
                 break;
+            default:
+                break;
         }
     }
 
@@ -66,95 +68,58 @@ export default class FilterModal extends React.Component {
         if (!this.props.show) {
             return null;
         }
+        let team_options = new Set();
+        for (let i = 0; i < this.props.masterList.length; i += 1) {
+            team_options.add(this.props.masterList[i].team_abbr)
+        }
+        team_options = Array.from(team_options)
+
+        let opp_team_options = new Set();
+        for (let i = 0; i < this.props.masterList.length; i += 1) {
+            opp_team_options.add(this.props.masterList[i].team_abbr)
+        }
+        opp_team_options = Array.from(team_options)
+
         return (
             
-            <div onClick={(e) => { this.onClose(e)}} id="myModal" class="modal">
+            
+            <div onClick={(e) => { this.onClose(e)}} id="myModal" className="modal">
                 <div onClick={(e) => {e.stopPropagation()}}id="internal-modal" >
                 <div id='modal-header' className='modal-content'>
                     Advanced Search
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                     <div className='filter-names'>
                         Team:
                     </div>
                     <div>
                     <select style={style} className='drop-down' value={this.state.team} onChange={(e) => this.selectTeam(e, 'team')}>
-                            <option data-url="#" value="">Select Team</option>
-                            <option data-url="#" value="atl">Atl</option>
-                            <option data-url="#" value="bkn">Bkn</option>
-                            <option data-url="#" value="bos">Bos</option>
-                            <option data-url="#" value="cha">Cha</option>
-                            <option data-url="#" value="chi">Chi</option>
-                            <option data-url="#" value="cle">Cle</option>
-                            <option data-url="#" value="dal">Dal</option>
-                            <option data-url="#" value="den">Den</option>
-                            <option data-url="#" value="det">Det</option>
-                            <option data-url="#" value="gs">GS</option>
-                            <option data-url="#" value="hou">Hou</option>
-                            <option data-url="#" value="ind">Ind</option>
-                            <option data-url="#" value="lac">LAC</option>
-                            <option data-url="#" value="lal">LAL</option>
-                            <option data-url="#" value="mem">Mem</option>
-                            <option data-url="#" value="mia">Mia</option>
-                            <option data-url="#" value="mil">Mil</option>
-                            <option data-url="#" value="min">Min</option>
-                            <option data-url="#" value="no">NO</option>
-                            <option data-url="#" value="ny">NY</option>
-                            <option data-url="#" value="okc">OKC</option>
-                            <option data-url="#" value="orl">Orl</option>
-                            <option data-url="#" value="phi">Phi</option>
-                            <option data-url="#" value="phx">Phx</option>
-                            <option data-url="#" value="por">Por</option>
-                            <option data-url="#" value="sa">SA</option>
-                            <option data-url="#" value="sac">Sac</option>
-                            <option data-url="#" value="tor">Tor</option>
-                            <option data-url="#" value="utah">Utah</option>
-                            <option data-url="#" value="wsh">Wsh</option>
+                                <option key='default' value=''>Select Team</option>
+                                {team_options.map( (option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                     </option>
+                                ))}
                     </select>
                     </div>
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                 <div>
                     Opposing Team:
                 </div>
                 <div>
                         <select style={style} className='drop-down' value={this.state.opp_team} onChange={(e) => this.selectTeam(e, 'opp_team')}>
-                            <option data-url="#" value="">Select Team</option>
-                            <option data-url="#" value="atl">Atl</option>
-                            <option data-url="#" value="bkn">Bkn</option>
-                            <option data-url="#" value="bos">Bos</option>
-                            <option data-url="#" value="cha">Cha</option>
-                            <option data-url="#" value="chi">Chi</option>
-                            <option data-url="#" value="cle">Cle</option>
-                            <option data-url="#" value="dal">Dal</option>
-                            <option data-url="#" value="den">Den</option>
-                            <option data-url="#" value="det">Det</option>
-                            <option data-url="#" value="gs">GS</option>
-                            <option data-url="#" value="hou">Hou</option>
-                            <option data-url="#" value="ind">Ind</option>
-                            <option data-url="#" value="lac">LAC</option>
-                            <option data-url="#" value="lal">LAL</option>
-                            <option data-url="#" value="mem">Mem</option>
-                            <option data-url="#" value="mia">Mia</option>
-                            <option data-url="#" value="mil">Mil</option>
-                            <option data-url="#" value="min">Min</option>
-                            <option data-url="#" value="no">NO</option>
-                            <option data-url="#" value="ny">NY</option>
-                            <option data-url="#" value="okc">OKC</option>
-                            <option data-url="#" value="orl">Orl</option>
-                            <option data-url="#" value="phi">Phi</option>
-                            <option data-url="#" value="phx">Phx</option>
-                            <option data-url="#" value="por">Por</option>
-                            <option data-url="#" value="sa">SA</option>
-                            <option data-url="#" value="sac">Sac</option>
-                            <option data-url="#" value="tor">Tor</option>
-                            <option data-url="#" value="utah">Utah</option>
-                            <option data-url="#" value="wsh">Wsh</option>
+                                <option key='default' value=''>Select Team</option>
+                                {opp_team_options.map((option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
                     </select>
                     </div>
                 </div>
                 
-                <div class="modal-content">
+                <div className="modal-content">
                     <div>
                         Points:
                     </div>
@@ -166,7 +131,7 @@ export default class FilterModal extends React.Component {
                         <div>{this.state.points[1]}</div>
                     </div>
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                     <div>
                         Rebounds:
                     </div>
@@ -177,7 +142,7 @@ export default class FilterModal extends React.Component {
                         <div>{this.state.rebounds[1]}</div>
                     </div>
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                     <div>
                         Assists:
                     </div>
@@ -187,7 +152,7 @@ export default class FilterModal extends React.Component {
                         <div>{this.state.assists[1]}</div>
                     </div>
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                     <div>
                         Active:
                     </div>
@@ -199,7 +164,7 @@ export default class FilterModal extends React.Component {
                         </select>
                     </div>
                 </div>
-                <div class="modal-content">
+                <div className="modal-content">
                     <div>
                         Starter:
                     </div>
